@@ -32,8 +32,15 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.flowLayoutPanel4 = new System.Windows.Forms.FlowLayoutPanel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.btnHuy = new System.Windows.Forms.Button();
+            this.txtTienPhaiTra = new System.Windows.Forms.TextBox();
+            this.txtTienGiamGia = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.btnThanhToan = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtThanhTien = new System.Windows.Forms.TextBox();
             this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
@@ -44,16 +51,15 @@
             this.radTreEm = new System.Windows.Forms.RadioButton();
             this.radSV = new System.Windows.Forms.RadioButton();
             this.radNguoiLon = new System.Windows.Forms.RadioButton();
-            this.txtThanhTien = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.btnThanhToan = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.flowLayoutPanel4 = new System.Windows.Forms.FlowLayoutPanel();
             this.flowLayoutPanel1.SuspendLayout();
-            this.flowLayoutPanel4.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.flowLayoutPanel3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.flowLayoutPanel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // flowLayoutPanel1
@@ -63,9 +69,9 @@
             this.flowLayoutPanel1.Controls.Add(this.label1);
             this.flowLayoutPanel1.Controls.Add(this.panel1);
             this.flowLayoutPanel1.Controls.Add(this.panel2);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(28, 38);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(28, 91);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(753, 511);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(753, 458);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
             // label1
@@ -93,25 +99,89 @@
             this.panel2.Size = new System.Drawing.Size(478, 363);
             this.panel2.TabIndex = 2;
             // 
-            // flowLayoutPanel4
-            // 
-            this.flowLayoutPanel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.flowLayoutPanel4.Controls.Add(this.groupBox3);
-            this.flowLayoutPanel4.Location = new System.Drawing.Point(513, 555);
-            this.flowLayoutPanel4.Name = "flowLayoutPanel4";
-            this.flowLayoutPanel4.Size = new System.Drawing.Size(242, 136);
-            this.flowLayoutPanel4.TabIndex = 17;
-            // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.btnHuy);
+            this.groupBox3.Controls.Add(this.txtTienPhaiTra);
+            this.groupBox3.Controls.Add(this.txtTienGiamGia);
+            this.groupBox3.Controls.Add(this.label4);
             this.groupBox3.Controls.Add(this.btnThanhToan);
+            this.groupBox3.Controls.Add(this.label5);
             this.groupBox3.Controls.Add(this.label2);
             this.groupBox3.Controls.Add(this.txtThanhTien);
             this.groupBox3.Location = new System.Drawing.Point(3, 3);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(238, 132);
+            this.groupBox3.Size = new System.Drawing.Size(360, 154);
             this.groupBox3.TabIndex = 0;
             this.groupBox3.TabStop = false;
+            // 
+            // btnHuy
+            // 
+            this.btnHuy.Location = new System.Drawing.Point(176, 111);
+            this.btnHuy.Name = "btnHuy";
+            this.btnHuy.Size = new System.Drawing.Size(159, 37);
+            this.btnHuy.TabIndex = 5;
+            this.btnHuy.Text = "Huy";
+            this.btnHuy.UseVisualStyleBackColor = true;
+            // 
+            // txtTienPhaiTra
+            // 
+            this.txtTienPhaiTra.Location = new System.Drawing.Point(105, 78);
+            this.txtTienPhaiTra.Name = "txtTienPhaiTra";
+            this.txtTienPhaiTra.Size = new System.Drawing.Size(230, 20);
+            this.txtTienPhaiTra.TabIndex = 4;
+            // 
+            // txtTienGiamGia
+            // 
+            this.txtTienGiamGia.Location = new System.Drawing.Point(105, 48);
+            this.txtTienGiamGia.Name = "txtTienGiamGia";
+            this.txtTienGiamGia.Size = new System.Drawing.Size(230, 20);
+            this.txtTienGiamGia.TabIndex = 4;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(6, 48);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(74, 13);
+            this.label4.TabIndex = 3;
+            this.label4.Text = "Tien Giam Gia";
+            // 
+            // btnThanhToan
+            // 
+            this.btnThanhToan.Location = new System.Drawing.Point(6, 111);
+            this.btnThanhToan.Name = "btnThanhToan";
+            this.btnThanhToan.Size = new System.Drawing.Size(159, 37);
+            this.btnThanhToan.TabIndex = 2;
+            this.btnThanhToan.Text = "Thanh Toan";
+            this.btnThanhToan.UseVisualStyleBackColor = true;
+            this.btnThanhToan.Click += new System.EventHandler(this.btnThanhToan_Click);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(6, 84);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(71, 13);
+            this.label5.TabIndex = 1;
+            this.label5.Text = "Tien Phai Tra";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 16);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(59, 13);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "ThanhTien";
+            // 
+            // txtThanhTien
+            // 
+            this.txtThanhTien.Location = new System.Drawing.Point(105, 13);
+            this.txtThanhTien.Name = "txtThanhTien";
+            this.txtThanhTien.ReadOnly = true;
+            this.txtThanhTien.Size = new System.Drawing.Size(230, 20);
+            this.txtThanhTien.TabIndex = 0;
             // 
             // flowLayoutPanel3
             // 
@@ -141,6 +211,7 @@
             this.checkBox1.TabIndex = 0;
             this.checkBox1.Text = "Khach Hang Thanh Vien";
             this.checkBox1.UseVisualStyleBackColor = true;
+ 
             // 
             // flowLayoutPanel2
             // 
@@ -217,38 +288,30 @@
             this.radNguoiLon.UseVisualStyleBackColor = true;
             this.radNguoiLon.CheckedChanged += new System.EventHandler(this.radNguoiLon_CheckedChanged_1);
             // 
-            // txtThanhTien
+            // label3
             // 
-            this.txtThanhTien.Location = new System.Drawing.Point(21, 42);
-            this.txtThanhTien.Name = "txtThanhTien";
-            this.txtThanhTien.ReadOnly = true;
-            this.txtThanhTien.Size = new System.Drawing.Size(159, 20);
-            this.txtThanhTien.TabIndex = 0;
+            this.label3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.label3.Location = new System.Drawing.Point(27, 25);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(754, 66);
+            this.label3.TabIndex = 18;
+            this.label3.Text = "label3";
             // 
-            // label2
+            // flowLayoutPanel4
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(18, 16);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(59, 13);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "ThanhTien";
-            // 
-            // btnThanhToan
-            // 
-            this.btnThanhToan.Location = new System.Drawing.Point(21, 80);
-            this.btnThanhToan.Name = "btnThanhToan";
-            this.btnThanhToan.Size = new System.Drawing.Size(159, 37);
-            this.btnThanhToan.TabIndex = 2;
-            this.btnThanhToan.Text = "Thanh Toan";
-            this.btnThanhToan.UseVisualStyleBackColor = true;
-            this.btnThanhToan.Click += new System.EventHandler(this.btnThanhToan_Click);
+            this.flowLayoutPanel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.flowLayoutPanel4.Controls.Add(this.groupBox3);
+            this.flowLayoutPanel4.Location = new System.Drawing.Point(513, 555);
+            this.flowLayoutPanel4.Name = "flowLayoutPanel4";
+            this.flowLayoutPanel4.Size = new System.Drawing.Size(364, 158);
+            this.flowLayoutPanel4.TabIndex = 17;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(945, 725);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.flowLayoutPanel4);
             this.Controls.Add(this.flowLayoutPanel3);
             this.Controls.Add(this.flowLayoutPanel2);
@@ -257,7 +320,6 @@
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.flowLayoutPanel1.ResumeLayout(false);
-            this.flowLayoutPanel4.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.flowLayoutPanel3.ResumeLayout(false);
@@ -266,6 +328,7 @@
             this.flowLayoutPanel2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.flowLayoutPanel4.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -276,7 +339,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel4;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel3;
         private System.Windows.Forms.GroupBox groupBox2;
@@ -291,6 +353,13 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtThanhTien;
         private System.Windows.Forms.Button btnThanhToan;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel4;
+        private System.Windows.Forms.Button btnHuy;
+        private System.Windows.Forms.TextBox txtTienPhaiTra;
+        private System.Windows.Forms.TextBox txtTienGiamGia;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
     }
 }
 
