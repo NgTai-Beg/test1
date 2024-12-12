@@ -94,21 +94,35 @@ namespace test1
             foreach (var kvp in gheDaChon)
             {
                 List<int> gheDaChonTrongHang = kvp.Value;
-                if (gheDaChonTrongHang.Count < 2) continue;  // Không đủ 2 ghế để kiểm tra
 
                 // Sắp xếp danh sách các ghế đã chọn theo vị trí (X)
                 gheDaChonTrongHang.Sort();
 
-                // Kiểm tra nếu có ghế bị bỏ giữa
-                for (int i = 0; i < gheDaChonTrongHang.Count - 1; i++)
+                // Nếu ghế số 2 được chọn, kiểm tra ghế số 1
+                if (gheDaChonTrongHang.Contains(41)) // 41 là tọa độ X của ghế số 2
                 {
-                    if (gheDaChonTrongHang[i + 1] - gheDaChonTrongHang[i] > 1)
+                    if (!gheDaChonTrongHang.Contains(11)) // 11 là tọa độ X của ghế số 1
                     {
-                        return true;  // Nếu có ghế bỏ giữa
+                        return true; // Ghế số 2 được chọn nhưng ghế số 1 bị bỏ trống
+                    }
+                }
+
+                // Kiểm tra ghế bị bỏ giữa (chỉ khi ghế đầu tiên đã được chọn)
+                if (gheDaChonTrongHang.Count > 1)
+                {
+                    int firstSeat = gheDaChonTrongHang.First();
+                    int lastSeat = gheDaChonTrongHang.Last();
+
+                    for (int x = firstSeat; x <= lastSeat; x += 30) // 30 là khoảng cách pixel giữa các ghế
+                    {
+                        if (!gheDaChonTrongHang.Contains(x))
+                        {
+                            return true; // Phát hiện ghế bị bỏ giữa
+                        }
                     }
                 }
             }
-            return false;
+            return false; // Không có ghế bị bỏ giữa hoặc ghế số 1 bị bỏ trống k
         }
         private bool KiemTraGheCot1DaChon(int yPosition)
         {
@@ -131,23 +145,30 @@ namespace test1
             int yPosition = b.Location.Y;
             int xPosition = b.Location.X;
 
-            // Kiểm tra nếu hàng này chưa có ghế đã chọn
             if (!gheDaChon.ContainsKey(yPosition))
             {
                 gheDaChon[yPosition] = new List<int>();
             }
 
-            // Thêm hoặc xóa ghế trong danh sách gheDaChon
-            if (b.BackColor == Color.Red)
+            if (b.BackColor == Color.Red) // Ghế đã chọn
             {
                 if (!gheDaChon[yPosition].Contains(xPosition))
                 {
-                    gheDaChon[yPosition].Add(xPosition);  // Thêm ghế đã chọn
+                    gheDaChon[yPosition].Add(xPosition);
                 }
             }
-            else
+            else // Ghế bỏ chọn
             {
-                gheDaChon[yPosition].Remove(xPosition);  // Xóa ghế đã bỏ chọn
+                if (gheDaChon[yPosition].Contains(xPosition))
+                {
+                    gheDaChon[yPosition].Remove(xPosition);
+                }
+
+                // Xóa hàng nếu không còn ghế nào trong hàng được chọn
+                if (gheDaChon[yPosition].Count == 0)
+                {
+                    gheDaChon.Remove(yPosition);
+                }
             }
         }
         private bool KiemTraGheCungHang(int yPosition)
@@ -204,45 +225,26 @@ namespace test1
                 return;
             }
 
-            // Kiểm tra nếu ghế được chọn ở cột thứ 2 (x = 41)
-            if (b.Location.X == 41) // Giả sử cột thứ 2 có x = 41
-            {
-                // Kiểm tra nếu người dùng chưa chọn ghế ở cột 1 của cùng hàng
-                if (!KiemTraGheCungHang(b.Location.Y))
-                {
-                    MessageBox.Show("Vui lòng chọn ghế ở cột 1 của hàng này trước khi chọn ghế ở cột 2!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;  // Ngừng sự kiện nếu chưa chọn ghế ở cột 1
-                }
-            }
-
-            // Kiểm tra nếu ghế đã được đặt (màu xám)
+            // Xử lý nếu ghế đã đặt (màu xám)
             if (b.BackColor == Color.Gray)
             {
-                MessageBox.Show("Ghế đã đặt");
-            }
-            else if (b.BackColor == Color.White) // Ghế trống
-            {
-                // Kiểm tra nếu có ghế bị bỏ giữa
-                if (HasEmptySeatBetween(b))
+                DialogResult result = MessageBox.Show("Ghế này đã được đặt. Bạn có muốn chọn lại không?", "Thông Báo", MessageBoxButtons.YesNo);
+                if (result == DialogResult.Yes)
                 {
-                    MessageBox.Show("Không thể chọn ghế nếu có ghế bị bỏ giữa!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    b.BackColor = Color.White; // Trả ghế về trạng thái có thể chọn
                     return;
                 }
-
-                // Đánh dấu ghế đã chọn
-                b.BackColor = Color.Red;
-
-                // Thêm ghế vào gheDaChon (bổ sung vào danh sách các ghế đã chọn trong hàng Y)
-                int yPosition = b.Location.Y;
-                int xPosition = b.Location.X;
-
-                if (!gheDaChon.ContainsKey(yPosition))
+                else
                 {
-                    gheDaChon[yPosition] = new List<int>();  // Nếu chưa có hàng, tạo mới
+                    return; // Nếu không, không làm gì
                 }
+            }
 
-                // Thêm ghế vào danh sách ghế đã chọn trong cùng hàng
-                gheDaChon[yPosition].Add(xPosition);
+            // Xử lý ghế trống
+            if (b.BackColor == Color.White) // Ghế trống
+            {
+                b.BackColor = Color.Red; // Đánh dấu ghế đã chọn
+                CapNhatGheDaChon(b); // Cập nhật danh sách ghế đã chọn
 
                 // Tăng số lượng ghế tùy theo loại vé đã chọn
                 if (radNguoiLon.Checked)
@@ -258,27 +260,12 @@ namespace test1
                     soLuongTreEm++;
                 }
 
-                // Tính lại tổng tiền sau khi chọn ghế
-                TinhThanhTien();
+                TinhThanhTien(); // Tính lại tổng tiền
             }
             else if (b.BackColor == Color.Red) // Nếu ghế đã chọn, bỏ chọn
             {
-                b.BackColor = Color.White;  // Đánh dấu ghế không được chọn nữa
-
-                // Xóa ghế khỏi gheDaChon
-                int yPosition = b.Location.Y;
-                int xPosition = b.Location.X;
-
-                if (gheDaChon.ContainsKey(yPosition))
-                {
-                    gheDaChon[yPosition].Remove(xPosition);  // Xóa ghế khỏi danh sách ghế đã chọn trong hàng Y
-
-                    // Nếu hàng không còn ghế nào được chọn, xóa hẳn hàng khỏi gheDaChon
-                    if (gheDaChon[yPosition].Count == 0)
-                    {
-                        gheDaChon.Remove(yPosition);
-                    }
-                }
+                b.BackColor = Color.White; // Đánh dấu ghế không được chọn nữa
+                CapNhatGheDaChon(b); // Cập nhật danh sách ghế đã chọn
 
                 // Giảm số lượng ghế tùy theo loại vé đã chọn
                 if (radNguoiLon.Checked)
@@ -294,8 +281,7 @@ namespace test1
                     soLuongTreEm--;
                 }
 
-                // Tính lại tổng tiền sau khi bỏ chọn ghế
-                TinhThanhTien();
+                TinhThanhTien(); // Tính lại tổng tiền
             }
         }
         private void TinhGiaVe()
@@ -369,10 +355,10 @@ namespace test1
 
         private void btnThanhToan_Click(object sender, EventArgs e)
         {
-
+            // Kiểm tra nếu có ghế bị bỏ giữa hoặc ghế số 1 bị bỏ trống khi ghế số 2 được chọn
             if (KiemTraGheBiBoGiua())
             {
-                MessageBox.Show("Không thể thanh toán vì có ghế bị bỏ giữa!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Không thể thanh toán vì có ghế bị bỏ giữa hoặc ghế đầu tiên trong hàng bị bỏ trống khi ghế số 2 được chọn!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -380,7 +366,6 @@ namespace test1
 
             if (result == DialogResult.Yes)
             {
-                // Thông báo thanh toán thành công
                 MessageBox.Show("Thanh toán thành công!", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 // Đổi màu ghế đã chọn thành màu xám
@@ -388,26 +373,18 @@ namespace test1
                 {
                     if (control is Button btn && btn.BackColor == Color.Red)
                     {
-                        btn.BackColor = Color.Gray;  // Đổi màu ghế đã chọn thành màu xám
+                        btn.BackColor = Color.Gray; // Đổi màu ghế đã chọn thành màu xám
                     }
                 }
 
-                // Reset lại số lượng vé đã chọn
+                // Reset lại dữ liệu
+                gheDaChon.Clear(); // Xóa danh sách ghế đã chọn
                 soLuongNguoiLon = 0;
                 soLuongSV = 0;
                 soLuongTreEm = 0;
-
-                // Reset lại tổng tiền
                 tongTien = 0;
-                txtThanhTien.Clear();  // Xóa hiển thị tổng tiền
-
-                // Reset lại các radio button (nếu cần thiết)
-                radNguoiLon.Checked = false;
-                radSV.Checked = false;
-                radTreEm.Checked = false;
+                txtThanhTien.Clear(); // Xóa hiển thị tổng tiền
             }
-
-
         }
-    }
+        }
 }
